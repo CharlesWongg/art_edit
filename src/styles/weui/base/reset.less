@@ -1,0 +1,41 @@
+@import "fn";
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    line-height: 1.6;
+    font-family: @weuiFontDefault;
+    background-color: #f2f2f2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a img {
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+    .setTapColor();
+}
+
+.weui-btn_primary {
+    background-color: @weuiColorPrimary  !important;
+}
+
+.vux-header .vux-header-left a,
+.vux-header .vux-header-left button,
+.vux-header .vux-header-right a,
+.vux-header .vux-header-right button {
+    color: #fff;
+}
+
+.vux-tab .vux-tab-item.vux-tab-select {
+    color: @weuiColorPrimary  !important;
+    border-bottom-color: @weuiColorPrimary  !important;
+}
