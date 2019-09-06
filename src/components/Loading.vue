@@ -25,7 +25,7 @@ export default {
   methods: {
     checkLogin () {
       let that = this
-
+      return false
       this.$axios.post('/api/mobile.php?s=/index/index', {})
       .then(res => {
         let data = res.data
@@ -36,7 +36,7 @@ export default {
       .catch(err => {
         console.log(err)
         console.log('request fail')
-        that.$router.push('/Login')
+        that.$router.push(window.localtion.href)
       })
     }
   }

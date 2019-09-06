@@ -4,15 +4,15 @@
 	<card>
       <div slot="content" class="card-box">
         <div class="card-header">
-            <div class="headerimg">
-                <img src="http://zf.lanseemy.com/Public/Shop/images/avatar/avatar0.png" alt="用户头像">
+            <div class="headerimg">            
+                <img :src="user.head_img || 'http://zf.lanseemy.com/Public/Shop/images/avatar/avatar0.png'" alt="用户头像">
             </div>
             <div class="user-mid">                
                 <span class="user">{{ user.nickname || '--' }}</span>
             </div>            
         </div>
         <div class="card-footer">
-            <div class="money-box">余额<span class="money">5500</span>元</div>
+            <div class="money-box">余额<span class="money">{{ parseInt(user.money)/100 || 0 }}</span>元</div>
             <router-link tag="div" class="btn-pay" to="Pay">
                 <img src="../assets/icon/btn_pay.png" alt="" />
             </router-link>
@@ -21,7 +21,7 @@
     </card>
     <div class="mid_nav">                 
         <router-link to="articlelist" tag="div" class="item artlib"></router-link >
-        <router-link to="AccCenter" tag="div" class="item money"></router-link>        
+        <router-link to="Account" tag="div" class="item money"></router-link>        
     </div>
     <div class="m-grids">
         <grid :show-lr-borders="false" :show-vertical-dividers="false">

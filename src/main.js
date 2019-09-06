@@ -13,8 +13,10 @@ import { Group, Cell, DatetimePlugin, CloseDialogsPlugin, ConfigPlugin, BusPlugi
 import axios from 'axios'
 import qs from 'qs'
 
+// Vue.http.options.emulateJSON = true;
+
 // $axios
-Vue.prototype.$axios = (function () {
+const _http = Vue.prototype.$axios = (function () {
   var axiosDeploy = axios.create({
     headers: {
       'Accept': 'application/json,text/plain,*/*',
@@ -28,6 +30,13 @@ Vue.prototype.$axios = (function () {
       function (data, header) {
         // 添加token
         data.token = window.localStorage.getItem('token') || ''
+        // 本地调试
+        if (/local=1/.test(window.location.search)) {
+          data.local = 1
+        }
+        if (process.env.NODE_ENV === 'development') {
+          data.local = 1
+        }
         return qs.stringify(data)
       }
     ]
@@ -35,7 +44,38 @@ Vue.prototype.$axios = (function () {
   })
   axiosDeploy.interceptors.response.use(function (response) {
     if (response.data.code === -100) { // 重新登录
-      window.location.href = '/Login'
+      // window.localStorage.removeItem('token')
+      // window.location.reload()
+      // if (vm.$router.history.current.query.sign && vm.$router.history.current.query.code) {
+      //   let sign = vm.$router.history.current.query.sign
+      //   let code = vm.$router.history.current.query.code
+      //   let url = '/api/mobile.php?s=/public/login'
+      //   let data = {
+      //     sign,
+      //     code
+      //   }
+      //   Vue.$vux.toast.text('to post')
+      //   Vue.http.Axios.post(url, data)
+      //     .then(res => {
+      //       let data = res.data
+      //       if (data.token) {
+      //         Vue.$vux.toast.text(data.token)
+      //         // store.commit('updateToken', { token: data.token })
+      //       }
+      //     })
+      //     .catch(err => {
+      //       Vue.$vux.toast.text('登录失败')
+      //       console.log(err)
+      //     })
+      // } else {
+      //   let baseUrl = encodeURIComponent(window.location.href)
+      //   let jumpUrl = encodeURIComponent('http://uzf.lanseemy.com')
+      //   // Vue.$vux.toast.text(`http://zf.lanseemy.com/index.php?s=Access/agent&baseUrl=${baseUrl}&jumpUrl=${jumpUrl}`)
+      //   // console.log(`http://zf.lanseemy.com/index.php?s=Access/agent&baseUrl=${baseUrl}&jumpUrl=${jumpUrl}`)
+      //   // window.location.href = `http://zf.lanseemy.com/index.php?s=Access/agent&baseUrl=${baseUrl}&jumpUrl=${jumpUrl}`
+      // }
+     
+      // window.location.href = '/Home'
     } else if (response.data.code === -101) { // 无权限
       Vue.$vux.confirm.show({
         title: '提示',
@@ -164,6 +204,34 @@ methods.forEach(key => {
 
 router.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', { isLoading: true })
+
+  // 微信授权
+  if (!window.localStorage.getItem('token') || window.localStorage.getItem('token').length <= 0) {
+    if (to.query.sign && to.query.code) {
+      let sign = to.query.sign
+      let code = to.query.code
+      let url = '/api/mobile.php?s=/public/login'
+      let data = {
+        sign,
+        code
+      }
+      _http.post(url, { code: code, sign: sign })
+      .then(res => {
+        let data = res.data
+        if (data.code === 1) {
+          store.commit('updateToken', { token: data.token })
+          window.location.reload()
+        }
+      })      
+    } else {
+      let baseUrl = encodeURIComponent(window.location.href)
+      let jumpUrl = encodeURIComponent('http://uzf.lanseemy.com')
+      if (process.env.NODE_ENV !== 'development') {
+        window.location.href = `http://zf.lanseemy.com/index.php?s=Access/agent&baseUrl=${baseUrl}&jumpUrl=${jumpUrl}`
+      }
+      // if (process.env.NODE_ENV !== 'development' || !to.query.local) window.location.href = `http://zf.lanseemy.com/index.php?s=Access/agent&baseUrl=${baseUrl}&jumpUrl=${jumpUrl}`
+    }    
+  }
 
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)

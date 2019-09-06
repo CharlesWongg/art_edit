@@ -85,7 +85,8 @@ export default {
   },
   name: 'app',
   mounted () {
-    this.checkLogin(this.route.path) // 检测登录
+    // this.checkLogin(this.route.path) // 检测登录
+    document.title = '微文酷'
   },
   methods: {
     checkLogin (path) {
@@ -142,7 +143,7 @@ export default {
   },
   watch: {
     path (path) {
-      this.checkLogin(path) // 检测登录
+      // this.checkLogin(path) // 检测登录
     }
   },
   computed: {
@@ -156,7 +157,7 @@ export default {
       token: state => state.vux.token
     }),
     isShowBack () {      
-      if (/Register|Forget|Login|UserEdit|articledetail|articleedit|articletpltext|articletplimg|articletplvideo|ServiceTerm|PayTerm|Pay|ShareArticle|Transaction|Envelope|Article|CommentDetail/.test(this.route.path)) {
+      if (/Register|Forget|Login|UserEdit|articledetail|articleedit|articletpltext|articletplimg|articletplvideo|ServiceTerm|PayTerm|Pay|ShareArticle|Transaction|Envelope|Article|CommentDetail|Account/.test(this.route.path)) {
         return false
       }
       let re = new RegExp(/\/UserInfoAll\?aid=/)

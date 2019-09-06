@@ -26,6 +26,7 @@ import ArticleList from '@/pages/ArticleList'
 import ArticleTplImg from '@/pages/ArticleTplImg'
 import ArticleTplText from '@/pages/ArticleTplText'
 import ArticleTplVideo from '@/pages/ArticleTplVideo'
+import Account from '@/components/Account'
 
 Vue.use(Router)
 
@@ -139,11 +140,14 @@ export default new Router({
     name: '视频模板',
     component: ArticleTplVideo
   }, {
+    path: '/Account',
+    name: '账户中心',
+    component: Account
+  }, {
     path: '/',
-    redirect: '/Loading'
+    redirect: '/Home'
   }, {
     path: '*',
-    redirect: '/Loading',
-    meta: {}
+    redirect: '/Home'
   }]
 })
