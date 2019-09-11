@@ -1,7 +1,7 @@
 <template>
     <div>
         <sticky scroll-box="vux_view_box_body" :check-sticky-support="false" :offset="0">
-            <tab :line-width="2" active-color="#fc378c" v-model="tabIndex">
+            <tab :line-width="2" active-color="#91a8f6" v-model="tabIndex">
                 <tab-item
                     class="vux-center"
                     :selected="selectedTab === item.name"

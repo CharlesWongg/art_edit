@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 46px;">    
-    <tab active-color="#409EFF" bar-active-color="#409EFF">
+    <tab active-color="#91a8f6" bar-active-color="#91a8f6">
       <tab-item selected @on-item-click="onItemClick">默认</tab-item>
       <tab-item @on-item-click="onItemClick">转发</tab-item>
       <tab-item @on-item-click="onItemClick">停留</tab-item>
