@@ -1,5 +1,10 @@
 <template>
   <div style="padding-top: 46px;">
+    <group class="tips-group" v-if="showTips">
+      <cell title="温馨提示" @click.native="closeTips">
+        左划显示更多操作<span class="vux-close u-close-tips"></span>
+      </cell>
+    </group>  
     <swipeout class="m-article">
         <swipeout-item v-for="(item, i) in list" :key="i" transition-mode="follow" underlay-color="#fff" :auto-close-on-button-click="false" ref="swipeoutItem">
             <div slot="right-menu">
@@ -75,6 +80,7 @@ export default {
       isloading: false,
       showEndLine: false,
       confirmShow: false,
+      showTips: true,
       stateStyle: {
         1: 'badge-enable',
         2: '',
@@ -306,6 +312,10 @@ export default {
     // 编辑文章
     toEdit (id) {
       this.$router.push('/articleedit?id=' + id + '&from=artList')
+    },
+    // 关闭温馨提示
+    closeTips () {
+      this.showTips = false
     }
   },
   destroyed () {
@@ -327,5 +337,23 @@ export default {
   position: absolute;
   top: 45%;
   right: 0;
+}
+.tips-group {
+  margin-bottom: 12px;
+  .weui-cells {
+    margin-top: 0;
+  }
+}
+.u-close-tips {
+  &.vux-close {
+    margin-left: 6px;
+    width: 16px;
+    &::after {
+      width: 16px;
+    }
+    &::before {
+      width: 16px;
+    }    
+  }
 }
 </style>

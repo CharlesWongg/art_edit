@@ -149,7 +149,10 @@ export default {
                 that.isloading = false
                 return false
               }                
-              this.tabContentList = data.data
+            //   this.tabContentList = data.data
+              data.data.map((item, i) => {
+                  that.tabContentList.push(item)
+              })
             } else if (data.code === 0) {
               if (data.data === null || !data.data) {
                 that.showEndLine = true
