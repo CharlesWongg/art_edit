@@ -66,8 +66,10 @@
         
         <div style="padding: 15px;" class="rpk-footer">
           <span class="money">&yen;{{ rpkOpt.money||0 }}</span>
-          <x-button @click.native="sendRpk" type="primary" :show-loading="rpkLoading">立即发红包</x-button>
-          <x-button @click.native="rpkPop = false" type="default">取消</x-button>
+          <div style="width: 175px; margin: 0 auto;">
+            <x-button @click.native="sendRpk" type="primary" :show-loading="rpkLoading">立即发红包</x-button>
+            <x-button @click.native="rpkPop = false" type="default">取消</x-button>
+          </div>
           <span class="tips">24小时内未领取，红包将返回你的余额</span>
         </div>        
         <x-icon type="ios-close-empty" class="rpk-close" size="25" @click.native="rpkPop = false"></x-icon>
@@ -629,7 +631,7 @@ export default {
         color: #999;
     }
     button.weui-btn {
-        width: 50%;
+        width: 100%;
     }
 }
 .vux-tab-wrap {

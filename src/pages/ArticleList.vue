@@ -56,10 +56,7 @@ export default {
         return {            
             isloading: false,
             showEndLine: false,
-            tabTitleList: [{
-                id: 0,
-                name: '全部'
-            }],
+            tabTitleList: [],
             selectedTab: "全部",
             tabIndex: 0,
             page: 0,
@@ -71,7 +68,7 @@ export default {
     },
     mounted () {
       this.getTabList()
-      this.getArtList()
+    //   this.getArtList()
       window.addEventListener('scroll', this.loadMore, true)
     },
     methods: {
@@ -90,9 +87,27 @@ export default {
         .then(res => {
             let data = res.data
             if (data.code === 1) {
-            data.data.map((item) => {
-                this.tabTitleList.push(item)
-            })
+                that.$nextTick(function() {
+                    that.tabTitleList.push({
+                        id: 0,
+                        name: '全部'
+                    })
+                    data.data.map((item) => {
+                        that.tabTitleList.push(item)
+                    })
+                    that.selectedTab = "全部"
+                    that.getArtList()
+                    that.selectedTab = "热门"
+                    setTimeout(function() {
+                        that.selectedTab = "全部"
+                    }, 200)
+                })
+            } else {
+                that.tabTitleList.push({
+                    id: 0,
+                    name: '全部'
+                })                
+                that.getArtList()
             }
         })
         .catch(err => {

@@ -23,6 +23,7 @@
                             <span>已领取：&yen;{{ item.meta.get }}</span>
                             <span>{{ item.meta.date }}</span>
                         </div>
+                        <x-icon type="ios-arrow-left" class="icon-arrow-left" size="16"></x-icon>
                     </div>
                 </panel>
             </div>
@@ -318,4 +319,13 @@ export default {
 @import '../styles/reset.less';
 @import '../styles/1px.less';
 @import '../styles/article.less';
+.art-item {
+  position: relative;
+}
+.icon-arrow-left {
+  color: #999;
+  position: absolute;
+  top: 45%;
+  right: 0;
+}
 </style>

@@ -25,7 +25,7 @@
     </div>
     <div class="m-grids">
         <grid :show-lr-borders="false" :show-vertical-dividers="false">
-            <grid-item link="/Article" label="文章列表">
+            <grid-item link="/Article" label="我的文章">
                 <img slot="icon" src="../assets/icon/art_list.png">
             </grid-item>
             <grid-item link="/ShareArticle" label="已分享文章">

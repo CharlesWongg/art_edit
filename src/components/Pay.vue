@@ -67,12 +67,12 @@ export default {
   data () {
     return {
       isRead: true,
-      money: 500,
+      money: 5,
       moneyList: [
-        500,
-        1000,
-        2000,
-        5000
+        5,
+        10,
+        20,
+        50
       ],
       other_money: '',
       beNum: function (value) {

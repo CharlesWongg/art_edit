@@ -65,94 +65,96 @@
           <x-textarea v-model="shareDescription" :max="40" placeholder="例：倒贴1600元让你买，省钱变美的秘密全在这里"></x-textarea>
         </group>
       </section>
-      <!-- 图谱设置 -->
-      <section class="m-config-section">
-        <h2>图谱设置</h2>
-          <group class="check-wrap" title="我的图谱">
-            <radio :options="options" v-model="map.my.show"></radio>
-          </group>
-          <group class="check-wrap" title="活动源图谱">
-              <radio :options="options" v-model="map.source.show"></radio>
-          </group>
-      </section>
-      <!-- 红包总额 -->
-      <section class="m-config-section">
-        <h2>文章分享封顶奖励（元）<span class="tips">（发放达到该金额后不会发放红包）</span></h2>
-        <div>
-          <input placeholder="例：500" v-model="max_money">
-        </div>
-      </section>
-      <!-- 红包规则 -->
-      <section class="m-config-section">
-        <h2>设置系统发红包规则</h2>
-        <section class="sub-section">
-            <h4>触发系统发红包条件<span class="tips">（不设置时不触发）</span></h4>
-            <div class="item">
-                前 <input type="text" class="width-short" placeholder="60" v-model="reward.time" /> 分钟内
-            </div>
-            <div class="item">
-                阅读量低于 <input type="text" class="width-short" placeholder="600" v-model="reward.num" /> 时给阅读的用户发送红包
-            </div>
-        </section>
-        <section class="sub-section">
-            <h4>触发系统发红包条件<span class="tips">（不设置时不触发）</span></h4>
-            <div class="item">
-                用户停留页面 <input type="text" class="width-short" placeholder="10" v-model="red.stop" /> 秒
-            </div>
-            <group class="check-wrap" title="用户是否需要在文章页面存在滑动行为：">
-                <radio :options="options1" v-model="red.scroll"></radio>
+      <div id="setRule" v-if="showRule">
+        <!-- 图谱设置 -->
+        <section class="m-config-section">
+          <h2>图谱设置</h2>
+            <group class="check-wrap" title="我的图谱">
+              <radio :options="options" v-model="map.my.show"></radio>
             </group>
-            <group class="check-wrap" title="用户是否需要转发当前文章：">
-                <radio :options="options1" v-model="red.zhuan"></radio>
+            <group class="check-wrap" title="活动源图谱">
+                <radio :options="options" v-model="map.source.show"></radio>
             </group>
         </section>
-        <section class="sub-section">
-            <h4>单个红包金额限制</h4>
-            <div class="item">
-                最低金额 <input type="text" class="width-short" placeholder="0.3" v-model="red.min" /> 元
-            </div>
-            <div class="item">
-                最高金额 <input type="text" class="width-short" placeholder="0.5" v-model="red.max" /> 元
-            </div>
+        <!-- 红包总额 -->
+        <section class="m-config-section">
+          <h2>文章分享封顶奖励（元）<span class="tips">（发放达到该金额后不会发放红包）</span></h2>
+          <div>
+            <input placeholder="例：500" v-model="max_money">
+          </div>
         </section>
-        <section class="sub-section">
-            <h4>系统触发发放红包时间段内发放个数上限<span class="tips">（不设置时为无上限）</span></h4>
-            <div class="item">
-                <input type="text" class="width-short" placeholder="150" v-model="all_num" /> 个
-            </div>
-        </section>
-        <section class="sub-section">
-            <h4>红包发放商户名<span class="tips">（不设置时为系统默认）</span></h4>
-            <group>
-                <x-textarea :max="10" :rows="1" v-model="red.shop" placeholder="例：美星社"></x-textarea>
-            </group>
-        </section>
-        <section class="sub-section">
-            <h4>红包发放描述<span class="tips">（不设置时为系统默认）</span></h4>
-            <group>
-                <x-textarea :max="40" v-model="red.desc" placeholder="例：恭喜您！获得5元红包，请加微信MX_2019领取优惠券"></x-textarea>
-            </group>
-        </section>
-      </section>
-      <!-- 奖励规则 -->
-      <section class="m-config-section" style="padding-bottom: 40px;">
-          <h2>设置发放红包金额奖励规则</h2>
+        <!-- 红包规则 -->
+        <section class="m-config-section">
+          <h2>设置系统发红包规则</h2>
           <section class="sub-section">
-            <h4>一次滑动奖励</h4>
-            <div class="item">
-                <input type="text" v-model="scroll" class="width-short" placeholder="0.05" /> 元
-            </div>
+              <h4>触发系统发红包条件<span class="tips">（不设置时不触发）</span></h4>
+              <div class="item">
+                  前 <input type="text" class="width-short" placeholder="60" v-model="reward.time" /> 分钟内
+              </div>
+              <div class="item">
+                  阅读量低于 <input type="text" class="width-short" placeholder="600" v-model="reward.num" /> 时给阅读的用户发送红包
+              </div>
           </section>
           <section class="sub-section">
-            <h4>停留时间奖励</h4>
-            <div class="item">
-                奖励 <input type="text" v-model="stop.reward" class="width-short" placeholder="0.01" /> 元
-            </div>
-            <div class="item">
-                停留奖励时间上限 <input type="text" v-model="stop.time" class="width-short" placeholder="10" /> 秒
-            </div>
+              <h4>触发系统发红包条件<span class="tips">（不设置时不触发）</span></h4>
+              <div class="item">
+                  用户停留页面 <input type="text" class="width-short" placeholder="10" v-model="red.stop" /> 秒
+              </div>
+              <group class="check-wrap" title="用户是否需要在文章页面存在滑动行为：">
+                  <radio :options="options1" v-model="red.scroll"></radio>
+              </group>
+              <group class="check-wrap" title="用户是否需要转发当前文章：">
+                  <radio :options="options1" v-model="red.zhuan"></radio>
+              </group>
           </section>
-      </section>
+          <section class="sub-section">
+              <h4>单个红包金额限制</h4>
+              <div class="item">
+                  最低金额 <input type="text" class="width-short" placeholder="0.3" v-model="red.min" /> 元
+              </div>
+              <div class="item">
+                  最高金额 <input type="text" class="width-short" placeholder="0.5" v-model="red.max" /> 元
+              </div>
+          </section>
+          <section class="sub-section">
+              <h4>系统触发发放红包时间段内发放个数上限<span class="tips">（不设置时为无上限）</span></h4>
+              <div class="item">
+                  <input type="text" class="width-short" placeholder="150" v-model="all_num" /> 个
+              </div>
+          </section>
+          <section class="sub-section">
+              <h4>红包发放商户名<span class="tips">（不设置时为系统默认）</span></h4>
+              <group>
+                  <x-textarea :max="10" :rows="1" v-model="red.shop" placeholder="例：美星社"></x-textarea>
+              </group>
+          </section>
+          <section class="sub-section">
+              <h4>红包发放描述<span class="tips">（不设置时为系统默认）</span></h4>
+              <group>
+                  <x-textarea :max="40" v-model="red.desc" placeholder="例：恭喜您！获得5元红包，请加微信MX_2019领取优惠券"></x-textarea>
+              </group>
+          </section>
+        </section>
+        <!-- 奖励规则 -->
+        <section class="m-config-section" style="padding-bottom: 40px;">
+            <h2>设置发放红包金额奖励规则</h2>
+            <section class="sub-section">
+              <h4>一次滑动奖励</h4>
+              <div class="item">
+                  <input type="text" v-model="scroll" class="width-short" placeholder="0.05" /> 元
+              </div>
+            </section>
+            <section class="sub-section">
+              <h4>停留时间奖励</h4>
+              <div class="item">
+                  奖励 <input type="text" v-model="stop.reward" class="width-short" placeholder="0.01" /> 元
+              </div>
+              <div class="item">
+                  停留奖励时间上限 <input type="text" v-model="stop.time" class="width-short" placeholder="10" /> 秒
+              </div>
+            </section>
+        </section>
+      </div>      
     </div>
 
     <!-- 修改 -->
@@ -301,7 +303,7 @@
 
     <div v-transfer-dom>
       <div class="save-art">
-        <x-button class="confirm" type="primary" @click.native="saveArt">保存</x-button>
+        <x-button class="confirm" type="primary" @click.native="ruleConfirm">保存</x-button>
       </div>
     </div>    
   </div>
@@ -337,6 +339,7 @@ export default {
       titlePop: false,
       artInfo: {},
       editPop: false,
+      showRule: false,
       originData: null,
       isShowTips: true,
       editImageUrl: '',
@@ -992,15 +995,41 @@ export default {
       article.before(catchContainer, article) /** 把Dom 从嵌套标签抽离到 $refs.article 容器 */
       catchContainer.style.display = 'none'      
     },
+    // 设置规则
+    ruleConfirm () {
+      let that = this
+      if (this.showRule) {
+        this.saveArt()
+      } else {
+        this.$vux.confirm.show({
+          title: '要去设置红包吗？',
+          content: '设置红包更有利于文章扩散与阅读哦',
+          onCancel () {
+            that.saveArt()
+          },
+          onConfirm () {
+            that.showRule = true
+
+            // 滚动到红包设置
+            setTimeout(function() {
+              // let scrollH = document.getElementById('vux_view_box_body').scrollHeight          
+              let curroffTop = document.getElementById('setRule').offsetTop
+              // let toTop = scrollH - curroffTop
+              document.getElementById('vux_view_box_body').scrollTop = curroffTop          
+            }, 200)
+          }
+        })
+      }
+    },
     // 保存文章
     saveArt () {
       let that = this
       let query = this.$route.query
 
-      if (!this.shareDescription) {
-        that.$vux.toast.text('请填写微信分享描述')
-        return false
-      }   
+      // if (!this.shareDescription) {
+      //   that.$vux.toast.text('请填写微信分享描述')
+      //   return false
+      // }   
 
       this.beforeArtBox()
 
@@ -1023,29 +1052,55 @@ export default {
         data.aid = query.id
       }
 
-      this.$axios.post('/api/mobile.php?s=/WxUrlContent/save_art', data)
-      .then(res => {
-        let data = res.data
-        console.log(data)
-        if (data.code === 1) {
-          that.$vux.confirm.show({
-            title: '提示',
-            content: '保存成功，立即前往文章列表查看',
-            onCancel () {
-              console.log('cancel')
-            },
-            onConfirm () {
-              that.$router.push(`/Article`)
-            }
-          })          
-        } else if (data.code === 0) {
-          that.$vux.toast.text(data.msg)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        console.log('request fail')        
-      })    
+      if (query && query.from === 'artList') { // 文章编辑
+        this.$axios.post('/api/mobile.php?s=/WxUrlContent/mod_art', data)
+        .then(res => {
+          let data = res.data
+          console.log(data)
+          if (data.code === 1) {
+            that.$vux.confirm.show({
+              title: '提示',
+              content: '保存成功，立即前往文章列表查看',
+              onCancel () {
+                console.log('cancel')
+              },
+              onConfirm () {
+                that.$router.push(`/Article`)
+              }
+            })          
+          } else if (data.code === 0) {
+            that.$vux.toast.text(data.msg)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          console.log('request fail')        
+        })  
+      } else { // 新增
+        this.$axios.post('/api/mobile.php?s=/WxUrlContent/save_art', data)
+        .then(res => {
+          let data = res.data
+          console.log(data)
+          if (data.code === 1) {
+            that.$vux.confirm.show({
+              title: '提示',
+              content: '保存成功，立即前往文章列表查看',
+              onCancel () {
+                console.log('cancel')
+              },
+              onConfirm () {
+                that.$router.push(`/Article`)
+              }
+            })          
+          } else if (data.code === 0) {
+            that.$vux.toast.text(data.msg)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          console.log('request fail')        
+        })    
+      }
     },
     // 编辑发布人
     editUser () {
