@@ -77,6 +77,7 @@ export default {
         this.tabIndex = i
         this.page = 0
         this.showEndLine = false
+        this.tabContentList = []
         this.getArtList()
       },
       getTabList () {
