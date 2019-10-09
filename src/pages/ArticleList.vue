@@ -25,7 +25,7 @@
                                 <v-icon name="user" class="icon"></v-icon>
                                 <span class="nums">{{item.num}}</span>
                             </span>
-                            <span class="time">{{item.input_time*1000|dateFormat('YYYY-MM-DD HH:mm:ss')}}</span>
+                            <span class="time">{{item.input_time*1000|dateFormat('YYYY-MM-DD')}}</span>
                         </div>
                     </div>
                 </router-link>
@@ -212,6 +212,7 @@ export default {
         .time {
             // position: absolute;
             // right: 0;
+            color: #999;
             float: right;
         }
         .icon {
